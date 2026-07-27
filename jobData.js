@@ -1,5 +1,8 @@
-// Job data generator - deterministically generates 100,000 jobs for Dubai/UAE
+// Job data generator - deterministically generates 100,000 jobs for the Netherlands
 const TOTAL_JOBS = 100000;
+
+// DOMAIN for absolute URLs in schema
+const DOMAIN = 'https://rightwingnietherland.up.railway.app';
 
 const jobTitles = [
   "Software Engineer", "Frontend Developer", "Backend Developer", "Full Stack Developer",
@@ -29,74 +32,115 @@ const jobTitles = [
   "Scrum Master", "Agile Coach", "Release Manager", "Site Reliability Engineer",
   "Penetration Tester", "Cloud Engineer", "Platform Engineer", "API Developer",
   "Hotel Manager", "Restaurant Manager", "Chef", "Sommelier", "Event Manager",
-  "Aviation Engineer", "Pilot", "Flight Attendant", "Airport Manager"
+  "Aviation Engineer", "Pilot", "Flight Attendant", "Airport Manager",
+  "Supply Chain Analyst", "Warehouse Manager", "Fulfillment Specialist", "Customs Broker",
+  "Maritime Engineer", "Port Operations Manager", "Shipping Coordinator", "Freight Forwarder",
+  "Agricultural Engineer", "Horticulturist", "Farm Manager", "Sustainability Consultant",
+  "Wind Energy Engineer", "Solar Energy Specialist", "Energy Analyst", "Grid Manager"
 ];
 
-// 75+ Dubai/UAE based companies + global companies with UAE presence
+// Dutch companies (including global with Dutch presence)
 const companies = [
-  // UAE/Dubai based
-  "Emirates Group", "Dubai Holding", "Emaar Properties", "DP World", "Dubai World",
-  "Abu Dhabi National Oil Company (ADNOC)", "Etihad Airways", "Flydubai", "Air Arabia",
-  "Al Habtoor Group", "Al Futtaim Group", "Dubai Islamic Bank", "Emirates NBD",
-  "Abu Dhabi Commercial Bank", "First Abu Dhabi Bank", "Mashreq Bank", "RAK Bank",
-  "Dubai Investments", "DAMAC Properties", "Nakheel", "Meraas", "Al Tayer Group",
-  "Jumeirah Group", "Atlantis The Palm", "Burj Al Arab", "Emirates Airlines",
+  // Dutch companies
+  "ASML", "Philips", "ING Group", "ABN AMRO", "Rabobank", "De Nederlandsche Bank",
+  "Shell", "Unilever", "Heineken", "Ahold Delhaize", "Jumbo", "Albert Heijn",
+  "KLM Royal Dutch Airlines", "Transavia", "Corendon", "TUI Netherlands",
+  "NS (Nederlandse Spoorwegen)", "ProRail", "Gemeente Amsterdam", "Gemeente Rotterdam",
+  "AkzoNobel", "DSM", "FrieslandCampina", "Nutricia", "Danone",
+  "Bosch", "TomTom", "NXP Semiconductors", "ASM International", "Besi",
+  "Eindhoven University of Technology", "TU Delft", "Wageningen University",
+  "Maersk", "Hapag-Lloyd", "Port of Rotterdam", "Port of Amsterdam",
+  "BAM Group", "VolkerWessels", "Heijmans", "Ballast Nedam",
+  "Eneco", "Vattenfall Netherlands", "Engie Netherlands", "TenneT",
+  "KPN", "VodafoneZiggo", "T-Mobile Netherlands", "Odido",
+  "FrieslandCampina", "VION Food Group", "Royal Cosun",
+  "Deutsche Bank Netherlands", "BNP Paribas Netherlands",
+  "Efteling", "Amsterdam RAI", "Holland Casino",
+  "Schiphol Airport", "Rotterdam The Hague Airport", "Eindhoven Airport",
+  "Van Gils", "Suitsupply", "G-Star RAW", "Scotch & Soda",
+  "Dutch Lady", "Henkel Netherlands", "L'Oréal Netherlands",
+  "Transavia", "TUI Netherlands", "Sunweb",
   
-  // Global with UAE presence
+  // Global with Dutch presence
   "Google", "Amazon", "Microsoft", "Apple", "Meta", "Tesla", "Netflix",
   "IBM", "Oracle", "Cisco", "Dell", "HP", "SAP", "Salesforce",
-  "Accenture", "Deloitte", "PwC", "KPMG", "EY", "McKinsey", "Boston Consulting Group",
-  "HSBC", "Standard Chartered", "Citi", "JPMorgan Chase", "Goldman Sachs",
-  "Unilever", "P&G", "Nestle", "Coca-Cola", "PepsiCo",
-  "Shell", "BP", "TotalEnergies", "ExxonMobil", "Chevron",
-  "Siemens", "GE", "Schneider Electric", "ABB", "Honeywell",
-  "Boeing", "Airbus", "Rolls-Royce", "Lockheed Martin",
+  "Accenture", "Deloitte", "PwC", "KPMG", "EY", "McKinsey", "BCG",
+  "HSBC", "Citi", "Goldman Sachs", "JPMorgan Chase",
+  "P&G", "Nestlé", "Coca-Cola", "PepsiCo", "Danone",
+  "BP", "TotalEnergies", "ExxonMobil", "Siemens",
+  "GE", "Schneider Electric", "ABB", "Honeywell",
+  "Boeing", "Airbus", "Rolls-Royce",
   "Pfizer", "Novartis", "Roche", "GSK", "Johnson & Johnson",
-  "Samsung", "LG", "Sony", "Panasonic", "Toshiba",
+  "Samsung", "LG", "Sony", "Panasonic",
   "Toyota", "Honda", "Nissan", "BMW", "Mercedes-Benz",
-  "LVMH", "Kering", "Chanel", "Gucci", "Rolex"
+  "LVMH", "Kering", "Chanel", "Gucci"
 ];
 
-const dubaiLocations = [
-  // Dubai
-  "Downtown Dubai, Dubai", "Dubai Marina, Dubai", "Jumeirah, Dubai", "Business Bay, Dubai",
-  "Dubai Silicon Oasis, Dubai", "Dubai Internet City, Dubai", "Media City, Dubai",
-  "JLT (Jumeirah Lakes Towers), Dubai", "DIFC (Dubai International Financial Centre), Dubai",
-  "Al Barsha, Dubai", "Deira, Dubai", "Bur Dubai, Dubai", "Karama, Dubai",
-  "Al Satwa, Dubai", "Jebel Ali, Dubai", "Dubai South, Dubai", "Al Quoz, Dubai",
-  "Emirates Hills, Dubai", "Palm Jumeirah, Dubai", "The World Islands, Dubai",
-  "Al Wasl, Dubai", "Al Nahda, Dubai", "Mirdif, Dubai", "Al Warqa, Dubai",
-  "Al Garhoud, Dubai", "Oud Metha, Dubai", "Al Rigga, Dubai", "Al Raffa, Dubai",
+const netherlandsLocations = [
+  // North Holland
+  "Amsterdam, North Holland", "Haarlem, North Holland", "Alkmaar, North Holland",
+  "Zaandam, North Holland", "Hilversum, North Holland", "Hoorn, North Holland",
+  "Purmerend, North Holland", "Zaanstad, North Holland", "Amstelveen, North Holland",
   
-  // Abu Dhabi
-  "Abu Dhabi City, Abu Dhabi", "Al Reem Island, Abu Dhabi", "Yas Island, Abu Dhabi",
-  "Al Raha Beach, Abu Dhabi", "Khalifa City, Abu Dhabi", "Al Ain, Abu Dhabi",
-  "Saadiyat Island, Abu Dhabi", "Corniche, Abu Dhabi", "Al Maryah Island, Abu Dhabi",
-  "Mohamed Bin Zayed City, Abu Dhabi", "Mussafah, Abu Dhabi",
+  // South Holland
+  "Rotterdam, South Holland", "The Hague, South Holland", "Leiden, South Holland",
+  "Delft, South Holland", "Gouda, South Holland", "Dordrecht, South Holland",
+  "Zoetermeer, South Holland", "Alphen aan den Rijn, South Holland",
+  "Vlaardingen, South Holland", "Schiedam, South Holland", "Spijkenisse, South Holland",
   
-  // Sharjah
-  "Sharjah City, Sharjah", "Al Majaz, Sharjah", "Al Khan, Sharjah", "Al Nahda, Sharjah",
-  "Muwaileh, Sharjah", "Al Tai, Sharjah",
+  // Utrecht
+  "Utrecht, Utrecht", "Amersfoort, Utrecht", "Zeist, Utrecht", "Nieuwegein, Utrecht",
+  "Veenendaal, Utrecht", "Houten, Utrecht", "Woerden, Utrecht",
   
-  // Other Emirates
-  "Ajman City, Ajman", "Ras Al Khaimah, RAK", "Fujairah City, Fujairah",
-  "Umm Al Quwain, UAQ", "Al Jazirah, UAQ",
+  // North Brabant
+  "Eindhoven, North Brabant", "Tilburg, North Brabant", "'s-Hertogenbosch, North Brabant",
+  "Breda, North Brabant", "Helmond, North Brabant", "Oss, North Brabant",
+  "Veldhoven, North Brabant", "Waalwijk, North Brabant", "Uden, North Brabant",
+  
+  // Gelderland
+  "Arnhem, Gelderland", "Nijmegen, Gelderland", "Apeldoorn, Gelderland",
+  "Ede, Gelderland", "Zutphen, Gelderland", "Doetinchem, Gelderland",
+  "Wageningen, Gelderland", "Harderwijk, Gelderland",
+  
+  // Overijssel
+  "Enschede, Overijssel", "Zwolle, Overijssel", "Deventer, Overijssel",
+  "Hengelo, Overijssel", "Almelo, Overijssel", "Kampen, Overijssel",
+  
+  // Limburg
+  "Maastricht, Limburg", "Heerlen, Limburg", "Venlo, Limburg",
+  "Sittard, Limburg", "Roermond, Limburg", "Weert, Limburg",
+  
+  // Flevoland
+  "Lelystad, Flevoland", "Almere, Flevoland", "Dronten, Flevoland",
+  
+  // Zeeland
+  "Middelburg, Zeeland", "Vlissingen, Zeeland", "Terneuzen, Zeeland",
+  
+  // Drenthe
+  "Assen, Drenthe", "Emmen, Drenthe", "Hoogeveen, Drenthe",
+  
+  // Friesland
+  "Leeuwarden, Friesland", "Sneek, Friesland", "Drachten, Friesland",
+  
+  // Groningen
+  "Groningen, Groningen", "Delfzijl, Groningen", "Veendam, Groningen",
   
   // Remote
-  "Remote — UAE", "Remote — Dubai, UAE"
+  "Remote — Netherlands", "Remote — Amsterdam, Netherlands"
 ];
 
 const salaryRanges = [
-  { display: "AED 5,000 – 8,000/month", min: 5000, max: 8000 },
-  { display: "AED 8,000 – 12,000/month", min: 8000, max: 12000 },
-  { display: "AED 12,000 – 18,000/month", min: 12000, max: 18000 },
-  { display: "AED 18,000 – 25,000/month", min: 18000, max: 25000 },
-  { display: "AED 25,000 – 35,000/month", min: 25000, max: 35000 },
-  { display: "AED 35,000 – 50,000/month", min: 35000, max: 50000 },
-  { display: "AED 50,000 – 75,000/month", min: 50000, max: 75000 },
-  { display: "AED 75,000 – 100,000/month", min: 75000, max: 100000 },
-  { display: "AED 100,000+/month", min: 100000, max: 150000 },
-  { display: "AED 3,000 – 5,000/month", min: 3000, max: 5000 }
+  { display: "€2,500 – €3,000/month", min: 2500, max: 3000 },
+  { display: "€3,000 – €3,500/month", min: 3000, max: 3500 },
+  { display: "€3,500 – €4,200/month", min: 3500, max: 4200 },
+  { display: "€4,200 – €5,000/month", min: 4200, max: 5000 },
+  { display: "€5,000 – €6,000/month", min: 5000, max: 6000 },
+  { display: "€6,000 – €7,500/month", min: 6000, max: 7500 },
+  { display: "€7,500 – €9,000/month", min: 7500, max: 9000 },
+  { display: "€9,000 – €11,000/month", min: 9000, max: 11000 },
+  { display: "€11,000+/month", min: 11000, max: 15000 },
+  { display: "€2,000 – €2,500/month", min: 2000, max: 2500 },
+  { display: "€1,500 – €2,000/month", min: 1500, max: 2000 }
 ];
 
 const jobTypes = ["FULL_TIME", "CONTRACTOR", "PART_TIME", "INTERN", "TEMPORARY"];
@@ -110,25 +154,31 @@ const jobTypeDisplay = {
 
 const experienceLevels = [
   { display: "Entry Level", schema: "no requirements" },
-  { display: "Mid Level",   schema: "2 years experience" },
-  { display: "Senior Level",schema: "5 years experience" },
-  { display: "Lead",        schema: "7 years experience" },
-  { display: "Manager",     schema: "5 years experience" },
-  { display: "Director",    schema: "8 years experience" },
-  { display: "Executive",   schema: "10 years experience" }
+  { display: "1–3 Years Experience", schema: "1 year experience" },
+  { display: "3–5 Years Experience", schema: "3 years experience" },
+  { display: "5–7 Years Experience", schema: "5 years experience" },
+  { display: "7–10 Years Experience", schema: "7 years experience" },
+  { display: "10+ Years Experience", schema: "10 years experience" },
+  { display: "Senior", schema: "5 years experience" },
+  { display: "Lead", schema: "7 years experience" },
+  { display: "Manager", schema: "5 years experience" },
+  { display: "Director", schema: "8 years experience" },
+  { display: "Executive", schema: "10 years experience" }
 ];
 
 const industries = [
   "Technology", "Fintech", "E-commerce", "Banking & Finance", "Oil & Gas",
   "Real Estate", "Healthcare", "Education", "Consulting", "Aviation",
   "Construction", "Logistics & Shipping", "Hospitality", "Retail", "Media & Entertainment",
-  "Renewable Energy", "Automotive", "Telecommunications", "Legal", "Government"
+  "Renewable Energy", "Automotive", "Telecommunications", "Legal", "Public Sector",
+  "Pharmaceuticals", "Agriculture", "Maritime", "Port & Harbor", "Semiconductor",
+  "Water Management", "Food Processing", "Engineering"
 ];
 
 const jobDescriptions = [
-  (title, company, isRemote, location) => `We are seeking a talented ${title} to join the team at ${company} in Dubai. ${isRemote ? "This is a fully remote role open to qualified candidates across the UAE." : `This role is based in ${location}.`}
+  (title, company, isRemote, location) => `We are seeking an experienced ${title} to join the team at ${company} in the Netherlands. ${isRemote ? "This is a fully remote role open to qualified candidates across the Netherlands." : `This role is based in ${location}.`}
 
-You will be responsible for delivering high-quality work that drives business outcomes and contributes to ${company}'s growing operations in the UAE and Middle East region.
+You will be responsible for delivering high-quality work that drives business outcomes and contributes to ${company}'s growing operations in the Netherlands and the broader European market.
 
 Key Responsibilities:
 • Lead and execute core ${title.toLowerCase()} functions across the organization
@@ -145,42 +195,41 @@ Requirements:
 • Proficiency with modern tools and platforms
 
 What We Offer:
-• Competitive salary in AED
-• Health insurance for you and family
-• 30 days annual leave
+• Competitive salary in EUR
+• 30 days annual leave (plus Dutch public holidays)
 • Remote work allowance
 • Annual performance bonus
-• Professional development budget
-• Tax-free income in Dubai`,
+• Pension plan
+• Travel allowance (if not fully remote)`,
 
-  (title, company, isRemote, location) => `${company} is hiring a ${title}! We are a leading company in Dubai looking for experienced professionals to scale our impact across the UAE and Middle East.
+  (title, company, isRemote, location) => `${company} is hiring a ${title}! We are a leading company in the Netherlands looking for experienced professionals to scale our impact across Europe.
 
-${isRemote ? "This remote-first position allows you to work from anywhere in the UAE with flexible hours." : `You will work from our ${location} office with a dynamic, ambitious team.`}
+${isRemote ? "This remote-first position allows you to work from anywhere in the Netherlands with flexible hours." : `You will work from our ${location} office with a dynamic, ambitious team.`}
 
 About the Role:
-As a ${title} at ${company}, you will play a key role in shaping our products and services. You'll work closely with leadership and peers to execute on our mission in one of the world's fastest-growing economies.
+As a ${title} at ${company}, you will play a key role in shaping our products and services. You'll work closely with leadership and peers to execute on our mission in one of Europe's most innovative economies.
 
 What You'll Do:
 • Drive key ${title.toLowerCase()} initiatives from planning to execution
 • Build and maintain relationships with key stakeholders
 • Report on KPIs and contribute to strategic planning
-• Stay updated on industry trends globally and in the UAE
+• Stay updated on industry trends globally and in the Netherlands
 • Represent ${company} with professionalism and integrity
 
 What You Bring:
 • 2–6 years proven experience as a ${title.toLowerCase()}
 • Strong analytical and communication skills
 • Team player with a growth mindset
-• Relevant certification or degree preferred
+• Relevant degree or certification preferred
 
 Compensation & Benefits:
-• Competitive AED salary • Tax-free income • Health insurance • Annual leave (30 days) • Education allowance • Housing allowance (for eligible positions)`,
+• Competitive EUR salary • 8% holiday pay (vakantiegeld) • 30 days annual leave • Pension plan • Travel allowance`,
 
-  (title, company, isRemote, location) => `Join ${company} as a ${title} and be part of one of Dubai's most exciting companies!
+  (title, company, isRemote, location) => `Join ${company} as a ${title} and be part of one of the Netherlands' most exciting companies!
 
-${isRemote ? "🌐 Remote | Work from anywhere in the UAE" : `📍 ${location}`}
+${isRemote ? "🌐 Remote | Work from anywhere in the Netherlands" : `📍 ${location}`}
 
-We're building the future of business in the Middle East and need exceptional talent like you. This is a rare opportunity to work with a world-class brand while enjoying the tax-free lifestyle of Dubai.
+We're building the future of business in Europe and need exceptional talent like you. This is a rare opportunity to work with a world-class brand while enjoying the Dutch work-life balance.
 
 The Opportunity:
 You'll be taking on the ${title} role at a critical growth stage. Your work will directly impact millions of customers across the region.
@@ -199,7 +248,7 @@ Your Profile:
 • Degree in relevant discipline (Master's is a plus)
 
 Perks at ${company}:
-Tax-free salary | Health insurance | Housing allowance (optional) | Annual flight allowance | Education allowance | 30 days leave | Performance bonus | Learning budget | Gym membership`
+Competitive salary | 8% holiday pay | 30 days leave | Pension plan | Performance bonus | Travel allowance`
 ];
 
 function seededRandom(seed) {
@@ -216,7 +265,7 @@ function getJobData(id) {
   const companyIndex = Math.floor((id - 1) / Math.ceil(TOTAL_JOBS / companies.length)) % companies.length;
 
   const titleIndex   = Math.floor(r(1) * jobTitles.length);
-  const locationIndex= Math.floor(r(3) * dubaiLocations.length);
+  const locationIndex= Math.floor(r(3) * netherlandsLocations.length);
   const salaryIndex  = Math.floor(r(4) * salaryRanges.length);
   const jobTypeIndex = Math.floor(r(5) * jobTypes.length);
   const expIndex     = Math.floor(r(6) * experienceLevels.length);
@@ -225,12 +274,12 @@ function getJobData(id) {
 
   const title    = jobTitles[titleIndex];
   const company  = companies[companyIndex];
-  const location = isRemote ? "Remote — UAE" : dubaiLocations[locationIndex];
+  const location = isRemote ? "Remote — Netherlands" : netherlandsLocations[locationIndex];
   const salary   = salaryRanges[salaryIndex];
   const jobType  = jobTypes[jobTypeIndex];
   const exp      = experienceLevels[expIndex];
   const industry = industries[industryIndex];
-  const description = jobDescriptions[descIndex](title, company, isRemote, dubaiLocations[locationIndex]);
+  const description = jobDescriptions[descIndex](title, company, isRemote, netherlandsLocations[locationIndex]);
 
   const daysAgo = Math.floor(r(9) * 60);
   const postedDate = new Date();
@@ -268,7 +317,7 @@ function getJobSchema(job) {
     "identifier": {
       "@type": "PropertyValue",
       "name": job.company,
-      "value": `JOB-AE-${String(job.id).padStart(6, '0')}`
+      "value": `JOB-NL-${String(job.id).padStart(6, '0')}`
     },
     "datePosted": job.postedDate,
     "validThrough": `${job.validThrough}T00:00:00Z`,
@@ -282,17 +331,17 @@ function getJobSchema(job) {
       "@type": "Place",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": job.isRemote ? "Dubai" : job.location.split(',')[0],
-        "addressCountry": "AE"
+        "addressLocality": job.isRemote ? "Amsterdam" : job.location.split(',')[0],
+        "addressCountry": "NL"
       }
     },
     "applicantLocationRequirements": {
       "@type": "Country",
-      "name": "United Arab Emirates"
+      "name": "Netherlands"
     },
     "baseSalary": {
       "@type": "MonetaryAmount",
-      "currency": "AED",
+      "currency": "EUR",
       "value": {
         "@type": "QuantitativeValue",
         "minValue": job.salaryMin,
@@ -306,7 +355,7 @@ function getJobSchema(job) {
         : parseInt(job.experienceSchema) * 12
     },
     "industry": job.industry,
-    "url": `/jobs/${job.id}`,
+    "url": `${DOMAIN}/jobs/${job.id}`,
     "directApply": true
   };
 
@@ -317,4 +366,4 @@ function getJobSchema(job) {
   return schema;
 }
 
-module.exports = { getJobData, getJobSchema, TOTAL_JOBS, jobTitles, companies, dubaiLocations, industries };
+module.exports = { getJobData, getJobSchema, TOTAL_JOBS, jobTitles, companies, netherlandsLocations, industries };
