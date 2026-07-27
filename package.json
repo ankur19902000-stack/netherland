@@ -1,7 +1,7 @@
 {
-  "name": "dubai-jobs-portal",
+  "name": "netherlands-jobs-portal",
   "version": "1.0.0",
-  "description": "Dubai Jobs Portal - 100,000 Job Listings | UAE",
+  "description": "NLJOBS.nl — 100,000 Jobs in the Netherlands | Netherlands' Largest Job Portal",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
